@@ -56,7 +56,7 @@ rm -rf %{buildroot}
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
-install -d %{buildroot}%{_localstatedir}/lib/%{mod_name}
+install -d %{buildroot}/var/lib/%{mod_name}
 
 
 install -m0755 apache2/.libs/mod_qos.so %{buildroot}%{_libdir}/apache-extramodules/
@@ -89,5 +89,5 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/mod_qos_control.so
 %attr(0755,root,root) %{_sbindir}/qslog
 %attr(0755,root,root) %{_sbindir}/qsfilter2
-%dir %attr(0711,apache,apache) %{_localstatedir}/lib/%{mod_name}
+%dir %attr(0711,apache,apache) /var/lib/%{mod_name}
 
