@@ -6,8 +6,8 @@
 
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
-Version:	6.7
-Release:	%mkrel 3
+Version:	7.4
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://mod-qos.sourceforge.net/
@@ -21,8 +21,9 @@ Requires(pre):  apache >= %{apache_version}
 Requires:	apache-conf >= %{apache_version}
 Requires:	apache >= %{apache_version}
 BuildRequires:	apache-devel >= %{apache_version}
-BuildRequires:	pcre-devel
 BuildRequires:	dos2unix
+BuildRequires:	openssl-devel
+BuildRequires:	pcre-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -44,7 +45,7 @@ find -type f -exec dos2unix -U {} \;
 %make -C tools CFLAGS="%{optflags}"
 
 gcc %{optflags} `apr-1-config --cppflags` `apr-1-config --includes` \
-    `apr-1-config --link-ld` `pcre-config --libs` `apu-1-config --link-ld` \
+    `apr-1-config --link-ld` `pcre-config --libs` `apu-1-config --avoid-ldap --link-ld` -lcrypto \
     -o tools/qsfilter/qsfilter2 tools/qsfilter/qsfilter2.c
 
 %{_sbindir}/apxs -c apache2/mod_qos.c
