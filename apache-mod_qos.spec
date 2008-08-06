@@ -7,7 +7,7 @@
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
 Version:	7.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/Servers
 License:	GPL
 URL:		http://mod-qos.sourceforge.net/
@@ -59,7 +59,6 @@ install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 install -d %{buildroot}/var/lib/%{mod_name}
 
-
 install -m0755 apache2/.libs/mod_qos.so %{buildroot}%{_libdir}/apache-extramodules/
 install -m0755 apache2/.libs/mod_qos_control.so %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
@@ -91,4 +90,3 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_sbindir}/qslog
 %attr(0755,root,root) %{_sbindir}/qsfilter2
 %dir %attr(0711,apache,apache) /var/lib/%{mod_name}
-
