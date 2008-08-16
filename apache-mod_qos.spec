@@ -6,8 +6,8 @@
 
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
-Version:	7.4
-Release:	%mkrel 2
+Version:	7.5
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://mod-qos.sourceforge.net/
