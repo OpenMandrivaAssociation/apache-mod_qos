@@ -6,7 +6,7 @@
 
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
-Version:	7.5
+Version:	7.11
 Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
