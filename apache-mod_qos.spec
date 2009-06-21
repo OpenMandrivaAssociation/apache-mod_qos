@@ -6,8 +6,8 @@
 
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
-Version:	7.11
-Release:	%mkrel 2
+Version:	8.13
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://mod-qos.sourceforge.net/
@@ -46,10 +46,9 @@ find -type f -exec dos2unix -U {} \;
 
 gcc %{optflags} `apr-1-config --cppflags` `apr-1-config --includes` \
     `apr-1-config --link-ld` `pcre-config --libs` `apu-1-config --avoid-ldap --link-ld` -lcrypto \
-    -o tools/qsfilter/qsfilter2 tools/qsfilter/qsfilter2.c
+    -o generators/qsfilter2 generators/qsfilter2.c
 
 %{_sbindir}/apxs -c apache2/mod_qos.c
-%{_sbindir}/apxs -c apache2/mod_qos_control.c
 
 %install
 rm -rf %{buildroot}
@@ -60,11 +59,10 @@ install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 install -d %{buildroot}/var/lib/%{mod_name}
 
 install -m0755 apache2/.libs/mod_qos.so %{buildroot}%{_libdir}/apache-extramodules/
-install -m0755 apache2/.libs/mod_qos_control.so %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
 
 install -m0755 tools/qslog %{buildroot}%{_sbindir}/
-install -m0755 tools/qsfilter/qsfilter2 %{buildroot}%{_sbindir}/
+install -m0755 generators/qsfilter2 %{buildroot}%{_sbindir}/
 
 %post
 if [ -f %{_var}/lock/subsys/httpd ]; then
@@ -86,7 +84,6 @@ rm -rf %{buildroot}
 %doc doc/* README.TXT
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/mod_qos.so
-%attr(0755,root,root) %{_libdir}/apache-extramodules/mod_qos_control.so
 %attr(0755,root,root) %{_sbindir}/qslog
 %attr(0755,root,root) %{_sbindir}/qsfilter2
 %dir %attr(0711,apache,apache) /var/lib/%{mod_name}
