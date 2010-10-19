@@ -6,14 +6,14 @@
 
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
-Version:	8.13
-Release:	%mkrel 3
+Version:	9.28
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://mod-qos.sourceforge.net/
-Source0:	http://heanet.dl.sourceforge.net/sourceforge/mod-qos/%{mod_name}-%{version}-src.tar.gz
+Source0:	http://heanet.dl.sourceforge.net/sourceforge/mod-qos/%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
-Patch0:		mod_qos-no_strip.diff
+Patch0:		mod_qos-9.28-ssl_fix.diff
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):  apache-conf >= %{apache_version}
@@ -24,6 +24,7 @@ BuildRequires:	apache-devel >= %{apache_version}
 BuildRequires:	dos2unix
 BuildRequires:	openssl-devel
 BuildRequires:	pcre-devel
+BuildRequires:	libpng-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -42,13 +43,13 @@ find -type f -exec dos2unix -U {} \;
 
 %build
 
-%make -C tools CFLAGS="%{optflags}"
+pushd tools
+%configure2_5x \
+    --bindir=%{_sbindir}
+%make
+popd
 
-gcc %{optflags} `apr-1-config --cppflags` `apr-1-config --includes` \
-    `apr-1-config --link-ld` `pcre-config --libs` `apu-1-config --avoid-ldap --link-ld` -lcrypto \
-    -o generators/qsfilter2 generators/qsfilter2.c
-
-%{_sbindir}/apxs -c apache2/mod_qos.c
+%{_sbindir}/apxs -c -DHAVE_OPENSSL apache2/mod_qos.c -lssl -lcrypto
 
 %install
 rm -rf %{buildroot}
@@ -61,8 +62,7 @@ install -d %{buildroot}/var/lib/%{mod_name}
 install -m0755 apache2/.libs/mod_qos.so %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
 
-install -m0755 tools/qslog %{buildroot}%{_sbindir}/
-install -m0755 generators/qsfilter2 %{buildroot}%{_sbindir}/
+%makeinstall_std -C tools
 
 %post
 if [ -f %{_var}/lock/subsys/httpd ]; then
@@ -84,6 +84,5 @@ rm -rf %{buildroot}
 %doc doc/* README.TXT
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/mod_qos.so
-%attr(0755,root,root) %{_sbindir}/qslog
-%attr(0755,root,root) %{_sbindir}/qsfilter2
+%attr(0755,root,root) %{_sbindir}/*
 %dir %attr(0711,apache,apache) /var/lib/%{mod_name}
