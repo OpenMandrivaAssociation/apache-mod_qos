@@ -39,7 +39,7 @@ and controls server access based on available resources.
 
 cp %{SOURCE1} %{mod_conf}
 
-find -type f -exec dos2unix -U {} \;
+find -type f -exec dos2unix {} \;
 
 %build
 
