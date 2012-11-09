@@ -1,0 +1,20 @@
+--- tools/src/qsfilter2.c	2010-09-24 20:07:31.000000000 +0200
++++ tools/src/qsfilter2.c.oden	2010-10-19 10:13:35.474748099 +0200
+@@ -60,7 +60,7 @@ static const char g_revision[] = "9.28";
+ //#include <ap_config.h>
+ 
+ /* OpenSSL  */
+-#include <openssl/stack.h>
++#include <openssl/safestack.h>
+ 
+ #define MAX_LINE 32768
+ /* 2mb */
+@@ -1670,7 +1670,7 @@ int main(int argc, const char * const ar
+   printf("# --------------------------------------------------------\n");
+ 
+   {
+-    STACK *st = sk_new(STACK_qs_cmp);
++    STACK_OF(SSL_CIPHER) *st = sk_new(STACK_qs_cmp);
+     qs_rule_t *r;
+     int j = 1;
+     entry = (apr_table_entry_t *)apr_table_elts(rules)->elts;
