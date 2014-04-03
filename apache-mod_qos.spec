@@ -22,6 +22,7 @@ Requires:	apache >= %{apache_version}
 BuildRequires:	apache-devel >= %{apache_version}
 BuildRequires:	dos2unix
 BuildRequires:	openssl-devel
+BuildRequires:	openldap-devel
 BuildRequires:	pcre-devel
 BuildRequires:	libpng-devel
 
