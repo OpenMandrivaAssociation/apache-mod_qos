@@ -1,3 +1,4 @@
----
-sources:
+removed_sources:
   mod_qos-10.11.tar.gz: 26513e942ac8866ddc090e1f4b8372891d931c43
+sources:
+  mod_qos-10.30.tar.gz: 22b8b61d0ec30d5b351a739c351cb4f472f97552
