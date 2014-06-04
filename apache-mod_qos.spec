@@ -7,7 +7,7 @@
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
 Version:	10.30
-Release:	1
+Release:	2
 Group:		System/Servers
 License:	GPLv2+
 URL:		http://mod-qos.sourceforge.net/
@@ -41,9 +41,10 @@ find -type f -exec dos2unix {} \;
 %build
 
 pushd tools
+autoreconf -fi
 %configure2_5x \
     --bindir=%{_sbindir}
-%make
+make
 popd
 
 %{_bindir}/apxs -c -DHAVE_OPENSSL apache2/mod_qos.c -lssl -lcrypto
