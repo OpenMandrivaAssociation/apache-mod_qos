@@ -7,7 +7,7 @@
 Summary:	A quality of service module for the Apache Web Server
 Name:		apache-%{mod_name}
 Version:	10.30
-Release:	2
+Release:	3
 Group:		System/Servers
 License:	GPLv2+
 URL:		http://mod-qos.sourceforge.net/
