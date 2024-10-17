@@ -10,7 +10,7 @@ Version:	10.30
 Release:	3
 Group:		System/Servers
 License:	GPLv2+
-URL:		http://mod-qos.sourceforge.net/
+URL:		https://mod-qos.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/mod-qos/%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
 Requires(pre): rpm-helper
